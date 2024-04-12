@@ -10,7 +10,7 @@ jobs:
         uses: Molemmat-Oy/opalopc-scan-action@development
         with:
           target-url: 'opc.tcp://scanme.opalopc.com:53530'
-          license-key: ${{ secrets.opalopc-license-key }}
+          license-key: ${{ secrets.OPALOPC_LICENSE_KEY }}
 
       - name: Verify the reports exist
         run: |

@@ -2,7 +2,7 @@ name: 'OpalOPC Scan Action'
 description: 'Runs a OpalOPC scan against a target site'
 author: 'Molemmat Oy'
 inputs:
-  target:
+  target-url:
     description: 'The full url (including scheme) of the server to scan'
     required: true
   license-key:
@@ -15,14 +15,12 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  entrypoint: 'sh -c'
+  entrypoint: "sh"
   env:
     OPALOPC_LICENSE_KEY: ${{ inputs.license-key }}
   args:
-    - opalopc
-    - -vv
-    - ${{ inputs.target }}
-    - -o ${{ inputs.output-base-filename }}
+    - -c
+    - opalopc -vv -o "${{ inputs.output-base-filename }}" "${{ inputs.target-url }}"
 branding:
   icon: 'activity'
   color: 'blue'

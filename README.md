@@ -40,7 +40,7 @@ steps:
     uses: Molemmat-Oy/opalopc-scan-action@main
     with:
       target-url: 'opc.tcp://scanme.opalopc.com:53530'
-      license-key: ${{ secrets.opalopc-license-key }}
+      license-key: ${{ secrets.OPALOPC_LICENSE_KEY }}
 ```
 
 ## Suggested Usage
