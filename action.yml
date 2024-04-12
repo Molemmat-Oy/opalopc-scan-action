@@ -1,0 +1,28 @@
+name: 'OpalOPC Scan Action'
+description: 'Runs a OpalOPC scan against a target site'
+author: 'Molemmat Oy'
+inputs:
+  target:
+    description: 'The full url (including scheme) of the server to scan'
+    required: true
+  license-key:
+    description: 'OpalOPC license key'
+    required: true
+  output-base-filename:
+    description: 'The base filename used for the scan report. This filepath relates to the opalopc container, and will exist in the github workspace (/github/workspace)'
+    required: false
+    default: opalopc-report
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  entrypoint: 'sh -c'
+  env:
+    OPALOPC_LICENSE_KEY: ${{ inputs.license-key }}
+  args:
+    - opalopc
+    - -vv
+    - ${{ inputs.target }}
+    - -o ${{ inputs.output-base-filename }}
+branding:
+  icon: 'activity'
+  color: 'blue'
