@@ -32,7 +32,9 @@ For full documentation on using OpalOPC, please consult the [Documentation](http
 Below are some examples of how to use the action by running a OpalOPC scan against our very own [Practice target](https://opalopc.com/docs/get-started/test-drive) site. This is a deliberately
 vulnerable OPC UA server setup for testing vulnerability scanners.
 
-## Basic Usage
+### Basic Usage
+
+The basic usage is to scan and make the results available for download:
 
 ```yaml
 steps:
@@ -41,10 +43,16 @@ steps:
     with:
       target-url: 'opc.tcp://scanme.opalopc.com:53530'
       license-key: ${{ secrets.OPALOPC_LICENSE_KEY }}
+
+  - name: Store scan reports
+    uses: actions/upload-artifact@v4
+    with:
+      name: opalopc-reports
+      path: opalopc-report.*
 ```
 
-## Suggested Usage
+## Integrate with Code Scanning
 
-OpalOPC produces an HTML and a SARIF report of the scan on completion. This report will only include vulnerability details if vulnerabilities were found by the scanner.
+You can integrate OpalOPC with GitHub Code Scanning by uploading SARIF scan reports to it. This lets you display the results in GitHub, or configure webhooks that listen to code scanning activity in your repository.
 
-By default, this action will not fail a workflow build even if vulnerabilities are found.
+See [Uploading a SARIF file to GitHub](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions).
