@@ -1,0 +1,18 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to test the OpalOPC Scan Action
+    steps:
+
+      - name: OpalOPC Scan Action step
+        uses: Molemmat-Oy/opalopc-scan-action@development
+        with:
+          target-url: 'opc.tcp://scanme.opalopc.com:53530'
+          license-key: ${{ secrets.opalopc-license-key }}
+
+      - name: Verify the reports exist
+        run: |
+          ls -la 
+          cat opalopc-report.sarif opalopc-report.html
